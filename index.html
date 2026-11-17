@@ -729,6 +729,23 @@
         }
         initAlphaBar();
         render();
+
+        // 自動讀取網址參數 ?q=單字 並觸發搜尋
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const word = params.get('q');
+  if (word) {
+    const input = document.querySelector('input[type="text"], input[type="search"], input');
+    if (input) {
+      input.value = word;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      // 如果你的網頁有搜尋按鈕，也自動幫你按下去
+      const btn = document.querySelector('button[type="submit"], button');
+      if (btn) btn.click();
+    }
+  }
+});
     </script>
 </body>
 </html>
