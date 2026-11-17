@@ -2838,3 +2838,97 @@ window.CORE_LEXICON = [
     ]
   ]
 ];
+
+// ==================== 自動整合 translation_links.csv 擴充單字 ====================
+(function mergeTranslationLinks(csvText) {
+  if (!window.CORE_LEXICON || !csvText) return;
+
+  // 1. 建立既有單字索引，避免重複加入同一個詞素條目
+  const lexMap = new Map();
+  window.CORE_LEXICON.forEach(entry => {
+    const existingSet = new Set(entry[5].map(item => item[0].toLowerCase()));
+    lexMap.set(entry[0], { entry, existingSet });
+  });
+
+  function addWord(id, word, pos, breakdown, meaning) {
+    const target = lexMap.get(id);
+    if (!target) return;
+    const key = word.toLowerCase();
+    if (target.existingSet.has(key)) return;
+    target.existingSet.add(key);
+    target.entry[5].push([word, pos, breakdown, meaning]);
+  }
+
+  // 2. 高頻構詞規律對照表（涵蓋字首、字根、字尾）
+  const rules = [
+    // 字首 Prefijos
+    ["pre-anti", /^anti(?=[a-záéíóúüñ]{4,})/i, "anti- (反對/抗) + 詞根"],
+    ["pre-auto", /^auto(?=[a-záéíóúüñ]{4,})/i, "auto- (自己/自動) + 詞根"],
+    ["pre-contra", /^contra(?=[a-záéíóúüñ]{4,})/i, "contra- (反對/相反) + 詞根"],
+    ["pre-des", /^(des|dis)(?=[a-záéíóúüñ]{4,})/i, "des-/dis- (否定/分離) + 詞根"],
+    ["pre-entre", /^(entre|inter)(?=[a-záéíóúüñ]{4,})/i, "entre-/inter- (之間/相互) + 詞根"],
+    ["pre-extra", /^extra(?=[a-záéíóúüñ]{4,})/i, "extra- (之外/額外) + 詞根"],
+    ["pre-sobre", /^(sobre|super|supra)(?=[a-záéíóúüñ]{4,})/i, "sobre-/super- (在…之上/過度) + 詞根"],
+    ["pre-sub", /^(sub|sus)(?=[a-záéíóúüñ]{4,})/i, "sub-/sus- (在…之下) + 詞根"],
+    ["pre-tele", /^tele(?=[a-záéíóúüñ]{4,})/i, "tele- (遠距離) + 詞根"],
+    ["pre-trans", /^(trans|tras)(?=[a-záéíóúüñ]{4,})/i, "trans-/tras- (橫越/轉變) + 詞根"],
+
+    // 字尾 Sufijos
+    ["suf-cion", /(ción|sión)$/i, "動詞詞幹 + -ción/-sión (動作/結果名詞)"],
+    ["suf-dad", /(dad|tad|tud)$/i, "形容詞詞幹 + -dad/-tad (抽象性質名詞)"],
+    ["suf-miento", /(miento|mento)$/i, "動詞詞幹 + -miento/-mento (行為/結果)"],
+    ["suf-ancia", /(ancia|encia|anza)$/i, "詞幹 + -ancia/-encia/-anza (狀態/性質)"],
+    ["suf-ez", /(ez|eza)$/i, "形容詞詞幹 + -ez/-eza (特質名詞)"],
+    ["suf-ura", /(ura|tura)$/i, "詞幹 + -ura (狀態/結果名詞)"],
+    ["suf-ismo", /ismo$/i, "詞幹 + -ismo (主義/運動/學說)"],
+    ["suf-ista", /ista$/i, "詞幹 + -ista (職業/主義者/愛好者)"],
+    ["suf-dor", /(dor|dora|tor|sor|tora|sora)$/i, "動詞詞幹 + -dor/-tor (執行者/機器/場所)"],
+    ["suf-ero", /(ero|era|ería)$/i, "名詞詞幹 + -ero/-ería (職業/容器/商店)"],
+    ["suf-aje", /aje$/i, "詞幹 + -aje (行為/集合/費用)"],
+    ["suf-ario", /(ario|aria|orio|oria)$/i, "詞幹 + -ario/-orio (場所/職業/相關形容詞)"],
+    ["suf-ado", /(ado|ada|ido|ida)$/i, "動詞詞幹 + -ado/-ido (狀態形容詞/行為名詞)"],
+    ["suf-able", /(able|ible)$/i, "動詞詞幹 + -able/-ible (能夠被…的)"],
+    ["suf-oso", /(oso|osa)$/i, "名詞詞幹 + -oso/-osa (充滿…特質的)"],
+    ["suf-ante", /(ante|ente|iente)$/i, "動詞詞幹 + -ante/-ente (執行者/性質形容詞)"],
+    ["suf-al", /(al|ar)$/i, "名詞詞幹 + -al/-ar (屬於…的/場所)"],
+    ["suf-ico", /(ico|ica|ático|ática)$/i, "詞幹 + -ico/-ático (與…有關的)"],
+    ["suf-ivo", /(ivo|iva)$/i, "詞幹 + -ivo/-iva (傾向於…的)"],
+    ["suf-escente", /(escente|ecer)$/i, "詞幹 + -ecer/-escente (開始進入某狀態)"],
+    ["suf-izar", /(izar|ificar)$/i, "詞幹 + -izar/-ificar (使成為…/使…化)"],
+    ["suf-ear", /ear$/i, "名詞/形容詞詞幹 + -ear (動作化動詞)"],
+    ["suf-mente", /mente$/i, "陰性形容詞 + -mente (副詞 -ly)"],
+    ["suf-ito", /(ito|ita|illo|illa|ín)$/i, "名詞/形容詞詞幹 + -ito/-illo/-ín (指小詞)"],
+    ["suf-on", /(ón|ona|azo|aza|ote)$/i, "詞幹 + -ón/-azo/-ote (指大詞/猛烈動作)"],
+    ["suf-logia", /(logía|logo|loga|grafía|metría)$/i, "希臘詞根 + -logía/-grafía (學科/專家)"]
+  ];
+
+  // 3. 解析 CSV 並自動歸類
+  const lines = csvText.split(/\r?\n/).slice(1);
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const parts = line.split(",");
+    if (parts.length < 2) continue;
+    const rawSp = parts[0].replace(/^"|"$/g, "").trim();
+    const rawEn = parts.slice(1).join(",").replace(/^"|"$/g, "").trim();
+
+    let pos = "n./adj.";
+    if (/^(el\/la|los\/las|el|la|los|las|un|una|unos|unas)\s+/i.test(rawSp)) pos = "n.";
+    else if (/^to\s+/i.test(rawEn)) pos = "v.";
+    else if (/mente$/i.test(rawSp)) pos = "adv.";
+
+    const cleanSp = rawSp.replace(/^(el\/la|los\/las|el|la|los|las|un|una|unos|unas)\s+/i, "").trim();
+    if (!/^[a-záéíóúüñ]+$/i.test(cleanSp) || cleanSp.length < 4) continue;
+
+    if (pos === "n./adj.") {
+      if (/(ar|er|ir|arse|erse|irse)$/i.test(cleanSp)) pos = "v.";
+      else if (/(ción|sión|dad|tad|miento|mento|ez|eza|ncia|nza|ismo|ería|aje|ura)$/i.test(cleanSp)) pos = "n.";
+      else if (/(ble|oso|osa|ivo|iva|ico|ica|ante|ente|iente|ado|ada|ido|ida)$/i.test(cleanSp)) pos = "adj.";
+    }
+
+    for (const [id, regex, breakdown] of rules) {
+      if (regex.test(cleanSp)) {
+        addWord(id, cleanSp, pos, breakdown, rawEn);
+      }
+    }
+  }
+})(window.TRANSLATION_LINKS_CSV || "");
