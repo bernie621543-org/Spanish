@@ -219,20 +219,30 @@
         function rebuildLexicon() {
             const baseLexicon = window.CORE_LEXICON || [];
             const combined = [...customLexicon, ...baseLexicon];
-            LEXICON = combined.map(([id, type, morpheme, origin, meaning, words]) => ({
-                id,
-                type,
-                morpheme,
-                origin,
-                meaning,
-                isCustom: id.startsWith("custom-"),
-                words: words.map(([word, pos, breakdown, wMeaning]) => ({
-                    word,
-                    pos,
-                    breakdown,
-                    meaning: wMeaning
-                }))
-            }));
+            
+            LEXICON = combined.map(item => {
+                // 確保 item 是陣列且至少有 6 個元素，防止格式錯誤導致當機
+                if (!Array.isArray(item) || item.length < 6) return null;
+                
+                const [id, type, morpheme, origin, meaning, words] = item;
+                const safeId = String(id || ""); // 強制轉為字串，避免 startsWith 崩潰
+                
+                return {
+                    id: safeId,
+                    type: type || "root",
+                    morpheme: morpheme || "",
+                    origin: origin || "",
+                    meaning: meaning || "",
+                    isCustom: safeId.startsWith("custom-"),
+                    words: Array.isArray(words) ? words.map(([word, pos, breakdown, wMeaning]) => ({
+                        word: word || "",
+                        pos: pos || "n.",
+                        breakdown: breakdown || "",
+                        meaning: wMeaning || ""
+                    })) : []
+                };
+            }).filter(Boolean); // 過濾掉格式錯誤的空項目
+            
             updateDbStats();
         }
 
