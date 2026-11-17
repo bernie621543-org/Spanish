@@ -2698,7 +2698,6 @@ window.CORE_LEXICON = [
     ]
   ],
   [
-  [
     "root-aper",
     "root",
     "aper- / abr-",
