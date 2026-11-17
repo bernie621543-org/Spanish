@@ -701,6 +701,17 @@
         }
         initAlphaBar();
         render();
+
+        // 即時接收來自 SpanishDictionary 腳本傳送的單字
+        window.addEventListener("message", (event) => {
+            if (event.data && event.data.type === "SYNC_WORD") {
+                const word = event.data.word || "";
+                state.searchQuery = word;
+                searchInput.value = word;
+                clearSearchBtn.classList.toggle("hidden", word.trim().length === 0);
+                render();
+            }
+        });
     </script>
 </body>
 </html>
