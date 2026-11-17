@@ -730,19 +730,35 @@
         initAlphaBar();
         render();
 
-        // 自動讀取網址參數 ?q=單字 並觸發搜尋
-window.addEventListener('DOMContentLoaded', () => {
+        // 自動讀取網址參數 ?q=單字 並強制觸發搜尋
+window.addEventListener('load', () => {
   const params = new URLSearchParams(window.location.search);
   const word = params.get('q');
-  if (word) {
-    const input = document.querySelector('input[type="text"], input[type="search"], input');
-    if (input) {
-      input.value = word;
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.dispatchEvent(new Event('change', { bubbles: true }));
-      // 如果你的網頁有搜尋按鈕，也自動幫你按下去
-      const btn = document.querySelector('button[type="submit"], button');
-      if (btn) btn.click();
+  if (!word) return;
+
+  // 延遲 300 毫秒確保 lexicon.js 與事件監聽器都已載入完成
+  setTimeout(() => {
+    const input = document.querySelector('input[type="text"], input[type="search"], input:not([type="hidden"])');
+    if (!input) return;
+
+    // 1. 填入單字並觸發所有常見的輸入事件
+    input.focus();
+    input.value = word;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+
+    // 2. 模擬按下 Enter 鍵
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }));
+    input.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }));
+
+    // 3. 精準尋找文字包含「搜尋 / 查詢 / Search / 🔍」的按鈕並點擊（避開新增或重設按鈕）
+    const buttons = Array.from(document.querySelectorAll('button'));
+    const searchBtn = buttons.find(b => /搜尋|查詢|分析|search|analyze|🔍/i.test(b.textContent || b.innerText || ''));
+    if (searchBtn) {
+      searchBtn.click();
+    }
+  }, 300);
+});
     }
   }
 });
