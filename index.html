@@ -722,14 +722,14 @@
             render();
         });
 
-   // 啟動初始化
+        // 啟動初始化
         rebuildLexicon();
         if (LEXICON.length > 0) {
             state.activeId = LEXICON[0].id;
         }
         initAlphaBar();
 
-        // 讀取網址參數 ?q=單字 並直接套用搜尋狀態
+        // 1. 讀取網址參數 ?q=單字 並直接套用搜尋狀態
         const urlParams = new URLSearchParams(window.location.search);
         const queryWord = urlParams.get("q");
         if (queryWord) {
@@ -737,6 +737,17 @@
             searchInput.value = queryWord;
             clearSearchBtn.classList.remove("hidden");
         }
+
+        // 2. 即時接收來自 SpanishDictionary 腳本傳送的單字
+        window.addEventListener("message", (event) => {
+            if (event.data && event.data.type === "SYNC_WORD") {
+                const word = event.data.word || "";
+                state.searchQuery = word;
+                searchInput.value = word;
+                clearSearchBtn.classList.toggle("hidden", word.trim().length === 0);
+                render();
+            }
+        });
 
         render();
     </script>
