@@ -10009,4 +10009,14 @@ window.CORE_LEXICON = [
       [
         "temperatura",
         "n.",
-        "temperar
+        "temperare (調節/溫度) + -tura",
+        "溫度"
+      ],
+      [
+        "altura",
+        "n.",
+        "alto (高的) + -ura",
+        "高度"
+      ]
+    ]
+  ],
