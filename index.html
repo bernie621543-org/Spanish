@@ -722,14 +722,23 @@
             render();
         });
 
-        // 啟動初始化
+      // 啟動初始化
         rebuildLexicon();
         if (LEXICON.length > 0) {
             state.activeId = LEXICON[0].id;
         }
         initAlphaBar();
-        render();
 
+        // 讀取網址參數 ?q=單字 並直接套用搜尋狀態
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryWord = urlParams.get("q");
+        if (queryWord) {
+            state.searchQuery = queryWord;
+            searchInput.value = queryWord;
+            clearSearchBtn.classList.remove("hidden");
+        }
+
+        render();
         // 自動讀取網址參數 ?q=單字 並強制觸發搜尋
 window.addEventListener('load', () => {
   const params = new URLSearchParams(window.location.search);
