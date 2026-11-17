@@ -2698,6 +2698,947 @@ window.CORE_LEXICON = [
     ]
   ],
   [
+  [
+    "root-aper",
+    "root",
+    "aper- / abr-",
+    "拉丁文 aperire (打開)",
+    "打開、開放",
+    [
+      [
+        "abrir",
+        "v.",
+        "abr- (開) + -ir",
+        "開"
+      ],
+      [
+        "apertura",
+        "n.",
+        "aper- (開) + -tura",
+        "開幕"
+      ],
+      [
+        "abierto",
+        "adj.",
+        "abier- (開) + -to",
+        "開放的"
+      ]
+    ]
+  ],
+  [
+    "root-cad",
+    "root",
+    "cad- / caí-",
+    "拉丁文 cadere (掉落)",
+    "掉落、落下",
+    [
+      [
+        "caída",
+        "n.",
+        "caí- (掉落) + -da",
+        "掉落"
+      ],
+      [
+        "decadencia",
+        "n.",
+        "de- (向下) + cad- (落) + -encia",
+        "衰落"
+      ]
+    ]
+  ],
+  [
+    "root-cing",
+    "root",
+    "cing- / ceñ- / cint-",
+    "拉丁文 cingere (束縛、圍繞)",
+    "束縛、圍繞",
+    [
+      [
+        "cinturón",
+        "n.",
+        "cint- (束) + -urón",
+        "腰帶"
+      ],
+      [
+        "ceñir",
+        "v.",
+        "ceñ- (束緊) + -ir",
+        "束緊"
+      ],
+      [
+        "recinto",
+        "n.",
+        "re- (回) + cinto (圍繞)",
+        "場地"
+      ]
+    ]
+  ],
+  [
+    "root-col",
+    "root",
+    "col- / cult-",
+    "拉丁文 colare (過濾)",
+    "過濾、滲透",
+    [
+      [
+        "colar",
+        "v.",
+        "col- (過濾) + -ar",
+        "過濾"
+      ],
+      [
+        "colador",
+        "n.",
+        "col- (過濾) + -ador",
+        "濾網"
+      ]
+    ]
+  ],
+  [
+    "root-cub",
+    "root",
+    "cub- / cubr-",
+    "拉丁文 cubare / cooperire (覆蓋)",
+    "覆蓋",
+    [
+      [
+        "cubrir",
+        "v.",
+        "cubr- (覆蓋) + -ir",
+        "覆蓋"
+      ],
+      [
+        "descubrir",
+        "v.",
+        "des- (去除) + cubrir (覆蓋)",
+        "發現"
+      ],
+      [
+        "cubierta",
+        "n.",
+        "cubier- (覆蓋) + -ta",
+        "封面"
+      ]
+    ]
+  ],
+  [
+    "root-escrut",
+    "root",
+    "escrut-",
+    "拉丁文 scrutari (仔細檢查)",
+    "仔細檢查、計票",
+    [
+      [
+        "escrutinio",
+        "n.",
+        "escrut- (檢查) + -inio",
+        "計票/審查"
+      ],
+      [
+        "escrutar",
+        "v.",
+        "escrut- (檢查) + -ar",
+        "細察"
+      ]
+    ]
+  ],
+  [
+    "root-fij",
+    "root",
+    "fij- / fix-",
+    "拉丁文 figere (固定)",
+    "固定",
+    [
+      [
+        "fijar",
+        "v.",
+        "fij- (固定) + -ar",
+        "固定"
+      ],
+      [
+        "prefijo",
+        "n.",
+        "pre- (前) + fijo (固定)",
+        "字首"
+      ],
+      [
+        "sufijo",
+        "n.",
+        "su- (後) + fijo (固定)",
+        "字尾"
+      ]
+    ]
+  ],
+  [
+    "root-frag",
+    "root",
+    "frag- / fragr-",
+    "拉丁文 fragrare (散發氣味)",
+    "散發氣味",
+    [
+      [
+        "fragrancia",
+        "n.",
+        "fragr- (氣味) + -ancia",
+        "香味"
+      ]
+    ]
+  ],
+  [
+    "root-fren",
+    "root",
+    "fren-",
+    "拉丁文 frenum (煞車、抑制)",
+    "煞車、抑制",
+    [
+      [
+        "frenar",
+        "v.",
+        "fren- (煞車) + -ar",
+        "煞車"
+      ],
+      [
+        "desenfrenado",
+        "adj.",
+        "des- (去) + enfrenado (受控的)",
+        "放縱的"
+      ]
+    ]
+  ],
+  [
+    "root-gast",
+    "root",
+    "gast-",
+    "拉丁文 vastare / gastare (花費、消耗)",
+    "花費、消耗",
+    [
+      [
+        "gastar",
+        "v.",
+        "gast- (花費) + -ar",
+        "花費"
+      ],
+      [
+        "desgaste",
+        "n.",
+        "des- (下) + gaste (消耗)",
+        "磨損"
+      ]
+    ]
+  ],
+  [
+    "root-gir",
+    "root",
+    "gir-",
+    "希臘文 gyros (旋轉)",
+    "旋轉",
+    [
+      [
+        "girar",
+        "v.",
+        "gir- (旋轉) + -ar",
+        "旋轉"
+      ],
+      [
+        "girasol",
+        "n.",
+        "gira (轉) + sol (太陽)",
+        "向日葵"
+      ]
+    ]
+  ],
+  [
+    "root-gust",
+    "root",
+    "gust-",
+    "拉丁文 gustare (品嚐、喜歡)",
+    "品嚐、喜歡",
+    [
+      [
+        "gustar",
+        "v.",
+        "gust- (喜歡) + -ar",
+        "喜歡"
+      ],
+      [
+        "disgusto",
+        "n.",
+        "dis- (不) + gusto (喜悅)",
+        "不悅"
+      ],
+      [
+        "degustar",
+        "v.",
+        "de- (加強) + gustar (品嚐)",
+        "品嚐"
+      ]
+    ]
+  ],
+  [
+    "root-hall",
+    "root",
+    "hall- / afl-",
+    "日耳曼語源 / 拉丁文 afflare (發現、吹氣)",
+    "發現",
+    [
+      [
+        "hallar",
+        "v.",
+        "hall- (發現) + -ar",
+        "發現"
+      ],
+      [
+        "hallazgo",
+        "n.",
+        "hall- (發現) + -azgo",
+        "發現物"
+      ]
+    ]
+  ],
+  [
+    "root-herb",
+    "root",
+    "herb- / hierb-",
+    "拉丁文 herba (草)",
+    "草",
+    [
+      [
+        "hierba",
+        "n.",
+        "hierb- (草)",
+        "草"
+      ],
+      [
+        "herbívoro",
+        "adj.",
+        "herbi- (草) + voro (吃)",
+        "草食性的"
+      ]
+    ]
+  ],
+  [
+    "root-huell",
+    "root",
+    "huell- / hollar",
+    "拉丁文 fullare / 俗拉丁文 (踩踏、足跡)",
+    "踩踏、足跡",
+    [
+      [
+        "huella",
+        "n.",
+        "huell- (足跡)",
+        "足跡/指紋"
+      ]
+    ]
+  ],
+  [
+    "root-infl",
+    "root",
+    "infl- / sopl-",
+    "拉丁文 inflare (吹氣、膨脹)",
+    "吹氣、膨脹",
+    [
+      [
+        "inflar",
+        "v.",
+        "infl- (充氣) + -ar",
+        "充氣"
+      ],
+      [
+        "inflación",
+        "n.",
+        "infla- (膨脹) + -ción",
+        "通貨膨脹"
+      ],
+      [
+        "soplar",
+        "v.",
+        "sopl- (吹) + -ar",
+        "吹"
+      ]
+    ]
+  ],
+  [
+    "root-ladr",
+    "root",
+    "ladr- / latr-",
+    "拉丁文 latrare (吠叫、崇拜)",
+    "吠叫、崇拜",
+    [
+      [
+        "ladrar",
+        "v.",
+        "ladr- (吠) + -ar",
+        "吠"
+      ],
+      [
+        "idólatra",
+        "n.",
+        "ídolo (偶像) + latra (崇拜)",
+        "偶像崇拜者"
+      ]
+    ]
+  ],
+  [
+    "root-lanz",
+    "root",
+    "lanz-",
+    "日耳曼語源 / 俗拉丁文 lanceare (投擲)",
+    "投擲、發射",
+    [
+      [
+        "lanzar",
+        "v.",
+        "lanz- (投擲) + -ar",
+        "發射/推出"
+      ],
+      [
+        "lanzamiento",
+        "n.",
+        "lanzamiento (發布)",
+        "發布"
+      ]
+    ]
+  ],
+  [
+    "root-limpi",
+    "root",
+    "limpi- / límpid-",
+    "拉丁文 limpidus (乾淨、清澈)",
+    "乾淨、清澈",
+    [
+      [
+        "limpiar",
+        "v.",
+        "limpi- (清) + -ar",
+        "清潔"
+      ],
+      [
+        "límpido",
+        "adj.",
+        "límpid- (清澈) + -o",
+        "清澈的"
+      ]
+    ]
+  ],
+  [
+    "root-llor",
+    "root",
+    "llor- / plor-",
+    "拉丁文 plorare (哭泣)",
+    "哭泣",
+    [
+      [
+        "llorar",
+        "v.",
+        "llor- (哭) + -ar",
+        "哭"
+      ],
+      [
+        "explorar",
+        "v.",
+        "ex- (出) + plor- (喊/探索) + -ar",
+        "探索"
+      ],
+      [
+        "implorar",
+        "v.",
+        "im- (向) + plor- (哭求) + -ar",
+        "懇求"
+      ]
+    ]
+  ],
+  [
+    "root-manch",
+    "root",
+    "manch- / macul-",
+    "俗拉丁文 maculare (污點)",
+    "污點",
+    [
+      [
+        "mancha",
+        "n.",
+        "manch- (污漬)",
+        "污漬"
+      ],
+      [
+        "inmaculado",
+        "adj.",
+        "in- (無) + maculado (有斑點的)",
+        "無瑕的"
+      ]
+    ]
+  ],
+  [
+    "root-mezcl",
+    "root",
+    "mezcl- / misc-",
+    "拉丁文 miscere (混合)",
+    "混合",
+    [
+      [
+        "mezclar",
+        "v.",
+        "mezcl- (混合) + -ar",
+        "混合"
+      ],
+      [
+        "miscelánea",
+        "n.",
+        "misc- (混雜) + -elánea",
+        "雜錄"
+      ]
+    ]
+  ],
+  [
+    "root-mord",
+    "root",
+    "mord- / muerd-",
+    "拉丁文 mordere (咬)",
+    "咬",
+    [
+      [
+        "morder",
+        "v.",
+        "mord- (咬) + -er",
+        "咬"
+      ],
+      [
+        "remordimiento",
+        "n.",
+        "re- + mord- (咬心) + -imiento",
+        "悔恨/良心不安"
+      ]
+    ]
+  ],
+  [
+    "root-ol",
+    "root",
+    "ol- / odor-",
+    "拉丁文 olere (氣味)",
+    "氣味",
+    [
+      [
+        "oler",
+        "v.",
+        "ol- (聞) + -er",
+        "聞"
+      ],
+      [
+        "olfato",
+        "n.",
+        "olfat- (嗅覺) + -o",
+        "嗅覺"
+      ],
+      [
+        "desodorante",
+        "n.",
+        "des- (去除) + odor- (氣味) + -ante",
+        "除臭劑"
+      ]
+    ]
+  ],
+  [
+    "root-pag",
+    "root",
+    "pag-",
+    "拉丁文 pacare (支付、平息)",
+    "支付",
+    [
+      [
+        "pagar",
+        "v.",
+        "pag- (付) + -ar",
+        "付錢"
+      ],
+      [
+        "pago",
+        "n.",
+        "pag- (付) + -o",
+        "付款"
+      ]
+    ]
+  ],
+  [
+    "root-peg",
+    "root",
+    "peg-",
+    "俗拉丁文 picae / picare (黏貼、打)",
+    "黏貼、打",
+    [
+      [
+        "pegar",
+        "v.",
+        "peg- (黏) + -ar",
+        "黏貼"
+      ],
+      [
+        "pegamento",
+        "n.",
+        "peg- (黏) + -amento",
+        "膠水"
+      ]
+    ]
+  ],
+  [
+    "root-pel",
+    "root",
+    "pel-",
+    "拉丁文 pilus (毛髮)",
+    "毛髮、剝皮",
+    [
+      [
+        "pelo",
+        "n.",
+        "pel- (毛)",
+        "頭髮"
+      ],
+      [
+        "pelar",
+        "v.",
+        "pel- (皮) + -ar",
+        "削皮"
+      ],
+      [
+        "peluquería",
+        "n.",
+        "peluq- (髮) + -ería",
+        "理髮店"
+      ]
+    ]
+  ],
+  [
+    "root-pes",
+    "root",
+    "pes-",
+    "拉丁文 pendere / pensum (重量)",
+    "重量",
+    [
+      [
+        "peso",
+        "n.",
+        "pes- (重) + -o",
+        "重量"
+      ],
+      [
+        "pesadilla",
+        "n.",
+        "pesa- (重) + -dilla",
+        "惡夢"
+      ]
+    ]
+  ],
+  [
+    "root-pic",
+    "root",
+    "pic-",
+    "日耳曼語源 / 俗拉丁文 picare (刺、啄、辣)",
+    "刺、啄、辣",
+    [
+      [
+        "picar",
+        "v.",
+        "pic- (叮) + -ar",
+        "叮/辣"
+      ],
+      [
+        "picante",
+        "adj.",
+        "pic- (辣) + -ante",
+        "辣的"
+      ],
+      [
+        "salpicar",
+        "v.",
+        "sal- + picar (刺濺)",
+        "濺"
+      ]
+    ]
+  ],
+  [
+    "root-pint",
+    "root",
+    "pint- / pict-",
+    "拉丁文 pingere / pictus (繪畫)",
+    "繪畫",
+    [
+      [
+        "pintar",
+        "v.",
+        "pint- (畫) + -ar",
+        "畫"
+      ],
+      [
+        "pictórico",
+        "adj.",
+        "pict- (畫) + -órico",
+        "繪畫的"
+      ]
+    ]
+  ],
+  [
+    "root-pis",
+    "root",
+    "pis-",
+    "拉丁文 pinsare (踩、樓層)",
+    "踩、樓層",
+    [
+      [
+        "pisar",
+        "v.",
+        "pis- (踩) + -ar",
+        "踩"
+      ],
+      [
+        "piso",
+        "n.",
+        "pis- (地板) + -o",
+        "地板/公寓"
+      ]
+    ]
+  ],
+  [
+    "root-quem",
+    "root",
+    "quem- / crem-",
+    "日耳曼語源 / 拉丁文 cremare (燃燒)",
+    "燃燒",
+    [
+      [
+        "quemar",
+        "v.",
+        "quem- (燒) + -ar",
+        "燒"
+      ],
+      [
+        "cremación",
+        "n.",
+        "crem- (燒) + -ación",
+        "火化"
+      ]
+    ]
+  ],
+  [
+    "root-rasg",
+    "root",
+    "rasg- / rasc-",
+    "日耳曼語源 / 拉丁文 radere (撕裂、抓)",
+    "撕裂、抓",
+    [
+      [
+        "rasgar",
+        "v.",
+        "rasg- (撕) + -ar",
+        "撕破"
+      ],
+      [
+        "rascacielos",
+        "n.",
+        "rasca (抓) + cielos (天空)",
+        "摩天大樓"
+      ]
+    ]
+  ],
+  [
+    "root-regal",
+    "root",
+    "regal-",
+    "法文 régal / 俗拉丁文 (贈送、王室)",
+    "贈送",
+    [
+      [
+        "regalo",
+        "n.",
+        "regal- (贈送)",
+        "禮物"
+      ]
+    ]
+  ],
+  [
+    "root-rob",
+    "root",
+    "rob- / rapt-",
+    "日耳曼語源 / 拉丁文 rapere (搶奪)",
+    "搶奪",
+    [
+      [
+        "robar",
+        "v.",
+        "rob- (偷) + -ar",
+        "偷搶"
+      ],
+      [
+        "raptar",
+        "v.",
+        "rapt- (搶) + -ar",
+        "綁架"
+      ]
+    ]
+  ],
+  [
+    "root-sec",
+    "root",
+    "sec-",
+    "拉丁文 siccus (乾燥)",
+    "乾燥",
+    [
+      [
+        "seco",
+        "adj.",
+        "sec- (乾) + -o",
+        "乾的"
+      ],
+      [
+        "secador",
+        "n.",
+        "sec- (乾) + -ador",
+        "吹風機"
+      ]
+    ]
+  ],
+  [
+    "root-sobr",
+    "root",
+    "sobr-",
+    "拉丁文 superare (剩餘)",
+    "剩餘",
+    [
+      [
+        "sobrar",
+        "v.",
+        "sobr- (剩) + -ar",
+        "多出"
+      ],
+      [
+        "sobras",
+        "n.",
+        "sobr- (剩)",
+        "剩菜"
+      ]
+    ]
+  ],
+  [
+    "root-sufr",
+    "root",
+    "sufr-",
+    "拉丁文 sufferre (承受、痛苦)",
+    "承受、痛苦",
+    [
+      [
+        "sufrir",
+        "v.",
+        "sufr- (受苦) + -ir",
+        "受苦"
+      ],
+      [
+        "sufrimiento",
+        "n.",
+        "sufr- (受苦) + -imiento",
+        "痛苦"
+      ]
+    ]
+  ],
+  [
+    "root-tap",
+    "root",
+    "tap-",
+    "日耳曼語源 (蓋住、塞住)",
+    "蓋住、塞住",
+    [
+      [
+        "tapar",
+        "v.",
+        "tap- (蓋) + -ar",
+        "蓋上"
+      ],
+      [
+        "tapa",
+        "n.",
+        "tap- (蓋)",
+        "蓋子/下酒菜"
+      ]
+    ]
+  ],
+  [
+    "root-tard",
+    "root",
+    "tard-",
+    "拉丁文 tardus (晚、遲)",
+    "晚、遲",
+    [
+      [
+        "tarde",
+        "n./adv.",
+        "tard- (晚)",
+        "晚"
+      ],
+      [
+        "retardo",
+        "n.",
+        "re- + tardo (遲)",
+        "延遲"
+      ]
+    ]
+  ],
+  [
+    "root-tir",
+    "root",
+    "tir-",
+    "日耳曼語源 / 俗拉丁文 (拉、扔、射擊)",
+    "拉、扔、射擊",
+    [
+      [
+        "tirar",
+        "v.",
+        "tir- (扔) + -ar",
+        "扔/拉"
+      ],
+      [
+        "retirar",
+        "v.",
+        "re- (回) + tirar (拉)",
+        "撤回"
+      ]
+    ]
+  ],
+  [
+    "root-val",
+    "root",
+    "val-",
+    "拉丁文 vallis (山谷)",
+    "山谷",
+    [
+      [
+        "valle",
+        "n.",
+        "val- (山谷)",
+        "山谷"
+      ]
+    ]
+  ],
+  [
+    "root-veng",
+    "root",
+    "veng- / vindic-",
+    "拉丁文 vindicare (報復、辯護)",
+    "報復、辯護",
+    [
+      [
+        "venganza",
+        "n.",
+        "veng- (報復) + -anza",
+        "復仇"
+      ],
+      [
+        "reivindicar",
+        "v.",
+        "re- + vindic- (主張) + -ar",
+        "主張權利"
+      ]
+    ]
+  ]
+],
+  [
     "root-aud",
     "root",
     "aud- / oí-",
