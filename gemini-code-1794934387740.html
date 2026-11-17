@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西班牙文全構詞詞素字典 | Prefijos, Raíces A-Z, Sufijos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        mark {
+            background-color: #fef08a;
+            color: #713f12;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden text-sm">
+
+    <!-- 頂部極簡工具列 -->
+    <header class="border-b border-slate-200 bg-white px-4 py-2 shrink-0">
+        <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2">
+            
+            <!-- 標題與統計 -->
+            <div class="flex items-center justify-between lg:justify-start gap-2.5">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-base text-slate-900 tracking-tight">西班牙文全構詞詞素字典</span>
+                    <span id="dbStatsBadge" class="text-[11px] font-mono text-slate-600 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded">載入中...</span>
+                </div>
+                <div class="flex items-center gap-1.5 lg:hidden">
+                    <button id="mobileAddBtn" class="px-2 py-1 border border-slate-300 text-slate-700 text-xs rounded hover:bg-slate-50 cursor-pointer">+ 新增</button>
+                    <button id="mobileExportBtn" class="px-2 py-1 bg-slate-900 text-white text-xs rounded hover:bg-slate-800 cursor-pointer">
+                        字卡 (<span class="selected-count">0</span>)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 搜尋與控制列 -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 lg:max-w-4xl lg:justify-end">
+                <div class="relative flex-1 min-w-[220px] max-w-md">
+                    <input type="text" id="searchInput" 
+                        placeholder="搜尋詞素 (mora, -escente)、拉丁原形、西文單字或中文..." 
+                        class="w-full pl-2.5 pr-7 py-1.5 bg-white border border-slate-300 rounded text-xs focus:outline-none focus:border-slate-800">
+                    <button id="clearSearchBtn" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-xs cursor-pointer">✕</button>
+                </div>
+
+                <!-- 詞性過濾 -->
+                <select id="posFilter" class="px-2 py-1.5 bg-white border border-slate-300 rounded text-xs text-slate-700 focus:outline-none focus:border-slate-800 cursor-pointer">
+                    <option value="all">所有詞性</option>
+                    <option value="v.">動詞 (v.)</option>
+                    <option value="n.">名詞 (n.)</option>
+                    <option value="adj.">形容詞 (adj.)</option>
+                    <option value="adv.">副詞 (adv.)</option>
+                </select>
+
+                <!-- 桌面版操作按鈕 -->
+                <button id="desktopAddBtn" class="hidden lg:inline-flex items-center gap-1 px-2.5 py-1.5 border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-medium rounded cursor-pointer">
+                    <span>+ 自訂詞素</span>
+                </button>
+                <button id="desktopExportBtn" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded cursor-pointer">
+                    <span>匯出 TSV</span>
+                    <span class="selected-count bg-slate-700 px-1.5 rounded text-[11px] font-mono">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主體雙欄字典區 -->
+    <div class="flex-1 flex flex-col md:flex-row overflow-hidden max-w-[1600px] w-full mx-auto">
+        
+        <!-- 左側欄：分類切換 + A-Z 索引 + 詞素列表 -->
+        <aside class="w-full md:w-[310px] border-b md:border-b-0 md:border-r border-slate-200 flex flex-col h-56 md:h-full shrink-0 bg-white">
+            <!-- 四大分類切換 -->
+            <div class="grid grid-cols-4 border-b border-slate-200 bg-slate-50 text-[11px] font-medium shrink-0" id="typeFilters">
+                <button data-type="all" class="type-btn py-2 text-center bg-slate-900 text-white cursor-pointer">全部</button>
+                <button data-type="prefix" class="type-btn py-2 text-center text-slate-600 hover:bg-slate-100 border-l border-slate-200 cursor-pointer">字首</button>
+                <button data-type="root" class="type-btn py-2 text-center text-slate-600 hover:bg-slate-100 border-l border-slate-200 cursor-pointer">字根 A-Z</button>
+                <button data-type="suffix" class="type-btn py-2 text-center text-slate-600 hover:bg-slate-100 border-l border-slate-200 cursor-pointer">字尾</button>
+            </div>
+
+            <!-- 字母快速跳轉列 -->
+            <div id="alphaBar" class="px-2 py-1.5 border-b border-slate-200 bg-slate-50/60 flex flex-wrap gap-0.5 text-[10px] font-mono shrink-0"></div>
+
+            <!-- 列表統計 -->
+            <div class="px-3 py-1.5 border-b border-slate-200 bg-white flex items-center justify-between text-[11px] text-slate-500 shrink-0">
+                <span id="sidebarCount">詞素索引</span>
+                <span id="activeAlphaTag" class="font-mono text-slate-700 font-semibold"></span>
+            </div>
+
+            <!-- 詞素滾動列表 -->
+            <div id="morphemeList" class="flex-1 overflow-y-auto divide-y divide-slate-100"></div>
+        </aside>
+
+        <!-- 右側欄：詳細字源解析與無巢狀乾淨單字表格 -->
+        <main class="flex-1 overflow-y-auto bg-white p-4 sm:p-6" id="detailPane"></main>
+    </div>
+
+    <!-- 手動新增自訂詞素 Modal -->
+    <div id="addModal" class="hidden fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-300 rounded max-w-lg w-full p-5 space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+                <h3 class="font-bold text-sm text-slate-900">新增自訂詞素（自動儲存於本機瀏覽器）</h3>
+                <button id="closeAddBtn" class="text-slate-400 hover:text-slate-700 text-xs px-2 py-1 cursor-pointer">✕</button>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                    <label class="block text-slate-600 mb-1">分類</label>
+                    <select id="newType" class="w-full border border-slate-300 rounded px-2.5 py-1.5 bg-white">
+                        <option value="root">核心字根 (Raíz)</option>
+                        <option value="prefix">字首 (Prefijo)</option>
+                        <option value="suffix">字尾 (Sufijo)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-600 mb-1">詞素寫法 *</label>
+                    <input type="text" id="newMorpheme" placeholder="例如：mor- / mora-" class="w-full border border-slate-300 rounded px-2.5 py-1.5">
+                </div>
+                <div>
+                    <label class="block text-slate-600 mb-1">拉丁/希臘字源</label>
+                    <input type="text" id="newOrigin" placeholder="例如：拉丁文 mora" class="w-full border border-slate-300 rounded px-2.5 py-1.5">
+                </div>
+                <div>
+                    <label class="block text-slate-600 mb-1">核心字義 *</label>
+                    <input type="text" id="newMeaning" placeholder="例如：延遲、停留" class="w-full border border-slate-300 rounded px-2.5 py-1.5">
+                </div>
+            </div>
+            <div class="border-t border-slate-200 pt-3 text-xs space-y-2">
+                <div class="font-medium text-slate-700">範例單字（可輸入 1~3 個，以逗號分隔或填寫主要單字）</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <input type="text" id="newWord1" placeholder="西文單字 (如 demorar)" class="border border-slate-300 rounded px-2 py-1.5">
+                    <input type="text" id="newPos1" placeholder="詞性 (如 v.)" value="v." class="border border-slate-300 rounded px-2 py-1.5">
+                    <input type="text" id="newWMean1" placeholder="中文意思 (如 延誤)" class="border border-slate-300 rounded px-2 py-1.5">
+                </div>
+                <input type="text" id="newBreak1" placeholder="構詞拆解 (如 de- + mor (停留) + -ar)" class="w-full border border-slate-300 rounded px-2 py-1.5">
+            </div>
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
+                <button id="cancelAddBtn" class="px-3 py-1.5 border border-slate-300 text-slate-700 text-xs rounded hover:bg-slate-50 cursor-pointer">取消</button>
+                <button id="saveCustomBtn" class="px-4 py-1.5 bg-slate-900 text-white text-xs font-medium rounded hover:bg-slate-800 cursor-pointer">儲存詞素</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 單字卡匯出 Modal -->
+    <div id="exportModal" class="hidden fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-300 rounded max-w-xl w-full p-5 space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+                <div>
+                    <h3 class="font-bold text-sm text-slate-900">匯出單字卡 (TSV 格式)</h3>
+                    <p class="text-[11px] text-slate-500">正面「[首字母] 詞性. 中文」 ⇥ 背面「西文單字」</p>
+                </div>
+                <button id="closeExportBtn" class="text-slate-400 hover:text-slate-700 text-xs px-2 py-1 cursor-pointer">✕</button>
+            </div>
+
+            <div class="flex items-center justify-between text-xs bg-slate-50 border border-slate-200 px-3 py-1.5 rounded">
+                <span>已選取 <strong id="modalCount" class="text-slate-900">0</strong> 個單字</span>
+                <button id="clearSelectionBtn" class="text-red-600 hover:underline cursor-pointer">全部清除</button>
+            </div>
+
+            <textarea id="exportTextarea" rows="8" readonly 
+                placeholder="尚未選取單字。請在右側表格勾選單字左側的核取方塊。"
+                class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded font-mono text-xs text-slate-800 focus:outline-none"></textarea>
+
+            <div class="flex justify-end gap-2">
+                <button id="copyExportBtn" class="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded cursor-pointer">複製到剪貼簿</button>
+                <button id="downloadTsvBtn" class="px-4 py-1.5 border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-medium rounded cursor-pointer">下載 .tsv 檔案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 極簡狀態提示 -->
+    <div id="toast" class="hidden fixed bottom-4 right-4 z-50 bg-slate-900 text-white text-xs px-3.5 py-2 rounded"></div>
+
+    <!-- 1. 引入外部詞庫檔案 -->
+    <script src="lexicon.js"></script>
+
+    <!-- 2. 主程式邏輯 -->
+    <script>
+        // 載入使用者自訂詞素 (localStorage)
+        const STORAGE_KEY = "es_etymology_custom_lexicon_v1";
+        function loadCustomLexicon() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+        function saveCustomLexicon(list) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            } catch (e) {
+                console.warn("無法寫入 localStorage", e);
+            }
+        }
+
+        let customLexicon = loadCustomLexicon();
+        let LEXICON = [];
+
+        function rebuildLexicon() {
+            const baseLexicon = window.CORE_LEXICON || [];
+            if (baseLexicon.length === 0) {
+                console.warn("找不到 CORE_LEXICON，請確認 lexicon.js 是否與 index.html 位於同一目錄。");
+            }
+            const combined = [...customLexicon, ...baseLexicon];
+            LEXICON = combined.map(([id, type, morpheme, origin, meaning, words]) => ({
+                id,
+                type,
+                morpheme,
+                origin,
+                meaning,
+                isCustom: id.startsWith("custom-"),
+                words: words.map(([word, pos, breakdown, wMeaning]) => ({
+                    word,
+                    pos,
+                    breakdown,
+                    meaning: wMeaning
+                }))
+            }));
+            updateDbStats();
+        }
+
+        // 應用程式狀態
+        const state = {
+            activeId: null,
+            searchQuery: "",
+            typeFilter: "all",
+            alphaFilter: "ALL",
+            posFilter: "all",
+            selectedWords: new Set()
+        };
+
+        // DOM 元素
+        const morphemeListEl = document.getElementById("morphemeList");
+        const detailPaneEl = document.getElementById("detailPane");
+        const searchInput = document.getElementById("searchInput");
+        const clearSearchBtn = document.getElementById("clearSearchBtn");
+        const typeBtns = document.querySelectorAll(".type-btn");
+        const posFilter = document.getElementById("posFilter");
+        const sidebarCount = document.getElementById("sidebarCount");
+        const activeAlphaTag = document.getElementById("activeAlphaTag");
+        const dbStatsBadge = document.getElementById("dbStatsBadge");
+        const alphaBar = document.getElementById("alphaBar");
+
+        // Modals
+        const exportModal = document.getElementById("exportModal");
+        const addModal = document.getElementById("addModal");
+        const toastEl = document.getElementById("toast");
+
+        function updateDbStats() {
+            const pCount = LEXICON.filter(i => i.type === "prefix").length;
+            const rCount = LEXICON.filter(i => i.type === "root").length;
+            const sCount = LEXICON.filter(i => i.type === "suffix").length;
+            dbStatsBadge.textContent = `共 ${LEXICON.length} 詞素 (首${pCount} / 根${rCount} / 尾${sCount})`;
+        }
+
+        function norm(str) {
+            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function getFirstLetter(morpheme) {
+            const clean = norm(morpheme).replace(/^[^a-z]+/, "");
+            return clean ? clean.charAt(0).toUpperCase() : "#";
+        }
+
+        function initAlphaBar() {
+            const letters = ["ALL", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
+            alphaBar.innerHTML = letters.map(l => `
+                <button data-alpha="${l}" class="alpha-btn px-1.5 py-0.5 rounded cursor-pointer ${l === 'ALL' ? 'bg-slate-800 text-white font-bold' : 'text-slate-600 hover:bg-slate-200'}">
+                    ${l === "ALL" ? "全" : l}
+                </button>
+            `).join("");
+
+            alphaBar.querySelectorAll(".alpha-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    state.alphaFilter = btn.dataset.alpha;
+                    alphaBar.querySelectorAll(".alpha-btn").forEach(b => {
+                        b.className = b.dataset.alpha === state.alphaFilter
+                            ? "alpha-btn px-1.5 py-0.5 rounded cursor-pointer bg-slate-800 text-white font-bold"
+                            : "alpha-btn px-1.5 py-0.5 rounded cursor-pointer text-slate-600 hover:bg-slate-200";
+                    });
+                    render();
+                });
+            });
+        }
+
+        function hl(text, query) {
+            if (!query) return text;
+            const safe = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return text.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
+        }
+
+        let toastTimer;
+        function showToast(msg) {
+            toastEl.textContent = msg;
+            toastEl.classList.remove("hidden");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toastEl.classList.add("hidden"), 2200);
+        }
+
+        function getTypeTag(type, isCustom) {
+            let base = "";
+            if (type === "prefix") base = '<span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 border border-amber-200">字首</span>';
+            else if (type === "suffix") base = '<span class="text-[10px] px-1.5 py-0.2 rounded bg-purple-50 text-purple-800 border border-purple-200">字尾</span>';
+            else base = '<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 border border-slate-200">字根</span>';
+
+            if (isCustom) {
+                base += ' <span class="text-[10px] px-1 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">自訂</span>';
+            }
+            return base;
+        }
+
+        function getFilteredLexicon() {
+            const q = norm(state.searchQuery.trim());
+
+            return LEXICON.map(item => {
+                if (state.typeFilter !== "all" && item.type !== state.typeFilter) return null;
+
+                if (!q && state.alphaFilter !== "ALL") {
+                    if (getFirstLetter(item.morpheme) !== state.alphaFilter) return null;
+                }
+
+                const morphemeMatch = !q ||
+                    norm(item.morpheme).includes(q) ||
+                    norm(item.meaning).includes(q) ||
+                    norm(item.origin).includes(q);
+
+                const matchedWords = item.words.filter(w => {
+                    if (state.posFilter !== "all" && !w.pos.includes(state.posFilter)) return false;
+                    if (!q) return true;
+                    return norm(w.word).includes(q) ||
+                           norm(w.meaning).includes(q) ||
+                           norm(w.breakdown).includes(q);
+                });
+
+                if (q) {
+                    if (matchedWords.length > 0) {
+                        return { ...item, displayWords: matchedWords };
+                    } else if (morphemeMatch) {
+                        const posWords = item.words.filter(w => state.posFilter === "all" || w.pos.includes(state.posFilter));
+                        if (posWords.length > 0) {
+                            return { ...item, displayWords: posWords };
+                        }
+                    }
+                    return null;
+                } else {
+                    if (matchedWords.length === 0) return null;
+                    return { ...item, displayWords: matchedWords };
+                }
+            }).filter(Boolean);
+        }
+
+        function render() {
+            const filtered = getFilteredLexicon();
+            const q = state.searchQuery.trim();
+
+            sidebarCount.textContent = `索引 (${filtered.length} 組)`;
+            activeAlphaTag.textContent = (!q && state.alphaFilter !== "ALL") ? `字母: ${state.alphaFilter}` : "";
+
+            if (filtered.length > 0 && !filtered.some(i => i.id === state.activeId)) {
+                state.activeId = filtered[0].id;
+            }
+
+            if (filtered.length === 0) {
+                morphemeListEl.innerHTML = `<div class="p-4 text-xs text-slate-400 text-center">無符合的詞素</div>`;
+            } else {
+                morphemeListEl.innerHTML = filtered.map(item => {
+                    const isActive = item.id === state.activeId && !q;
+                    return `
+                    <button onclick="selectMorpheme('${item.id}')" 
+                        class="w-full text-left px-3 py-2 flex items-center justify-between gap-2 transition cursor-pointer ${isActive ? 'bg-slate-900 text-white' : 'hover:bg-slate-50 text-slate-800'}">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="font-mono font-bold text-xs truncate ${isActive ? 'text-white' : 'text-slate-900'}">${hl(item.morpheme, q)}</span>
+                                ${!isActive ? getTypeTag(item.type, item.isCustom) : ''}
+                            </div>
+                            <div class="text-[11px] truncate mt-0.5 ${isActive ? 'text-slate-300' : 'text-slate-500'}">
+                                ${hl(item.meaning, q)}
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono shrink-0 px-1.5 py-0.5 rounded ${isActive ? 'bg-slate-700 text-slate-200' : 'bg-slate-100 text-slate-500'}">
+                            ${item.displayWords.length}
+                        </span>
+                    </button>
+                    `;
+                }).join("");
+            }
+
+            if (filtered.length === 0) {
+                const rawWord = state.searchQuery.trim();
+                detailPaneEl.innerHTML = `
+                <div class="max-w-lg mx-auto my-10 border border-slate-200 rounded p-5 text-center space-y-3">
+                    <h3 class="font-bold text-sm text-slate-900">查無「${rawWord || state.alphaFilter}」的相關紀錄</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        你可以點擊下方「手動新增詞素」直接建檔，或複製指令貼回對話框由 AI 幫你拆解：
+                    </p>
+                    <div class="bg-slate-50 border border-slate-200 p-2.5 rounded text-left font-mono text-xs text-slate-700 select-all" id="aiPromptBox">請幫我拆解西班牙文「${rawWord}」的字首、字根、字尾與拉丁/希臘文原意，並用表格列出同詞素的常用動詞、名詞與形容詞。</div>
+                    <div class="pt-1 flex flex-wrap justify-center gap-2">
+                        <button onclick="openAddModalWithTerm('${rawWord.replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 bg-slate-900 text-white text-xs font-medium rounded hover:bg-slate-800 cursor-pointer">
+                            + 手動新增此詞素
+                        </button>
+                        <button onclick="copyAiPrompt()" class="px-3.5 py-1.5 border border-slate-300 text-slate-700 text-xs rounded hover:bg-slate-50 cursor-pointer">
+                            複製 AI 查詢指令
+                        </button>
+                        <button onclick="resetFilters()" class="px-3.5 py-1.5 border border-slate-300 text-slate-700 text-xs rounded hover:bg-slate-50 cursor-pointer">
+                            重設篩選
+                        </button>
+                    </div>
+                </div>
+                `;
+                return;
+            }
+
+            const itemsToShow = q ? filtered : [filtered.find(i => i.id === state.activeId) || filtered[0]];
+
+            detailPaneEl.innerHTML = itemsToShow.map(item => {
+                const allSelected = item.displayWords.every(w => state.selectedWords.has(`${item.id}::${w.word}`));
+                return `
+                <section class="mb-7 last:mb-0">
+                    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-2.5 border-b border-slate-200">
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h2 class="text-lg font-bold font-mono text-slate-900">${hl(item.morpheme, q)}</h2>
+                                ${getTypeTag(item.type, item.isCustom)}
+                                <span class="text-xs text-slate-500 font-mono">${hl(item.origin, q)}</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-800 mt-1">${hl(item.meaning, q)}</p>
+                        </div>
+                        <div class="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                            ${item.isCustom ? `<button onclick="deleteCustomMorpheme('${item.id}')" class="px-2 py-1 border border-red-200 text-red-600 rounded text-xs hover:bg-red-50 cursor-pointer">刪除</button>` : ''}
+                            <button onclick="toggleSelectAllInGroup('${item.id}')" 
+                                class="px-2.5 py-1 border border-slate-300 rounded text-xs text-slate-700 hover:bg-slate-50 cursor-pointer">
+                                ${allSelected ? '取消全選' : '全選本組'}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto mt-3 border border-slate-200 rounded">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500">
+                                    <th class="py-1.5 px-2.5 w-8 text-center">選</th>
+                                    <th class="py-1.5 px-3">西文單字</th>
+                                    <th class="py-1.5 px-2 w-16">詞性</th>
+                                    <th class="py-1.5 px-3">構詞拆解</th>
+                                    <th class="py-1.5 px-3">中文意思</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-xs">
+                                ${item.displayWords.map(w => {
+                                    const key = `${item.id}::${w.word}`;
+                                    const checked = state.selectedWords.has(key);
+                                    return `
+                                    <tr class="hover:bg-slate-50 ${checked ? 'bg-amber-50/50' : ''}">
+                                        <td class="py-2 px-2.5 text-center">
+                                            <input type="checkbox" ${checked ? 'checked' : ''} 
+                                                onchange="toggleWord('${item.id}', '${w.word.replace(/'/g, "\\'")}')"
+                                                class="rounded border-slate-300 text-slate-900 focus:ring-0 cursor-pointer">
+                                        </td>
+                                        <td class="py-2 px-3 font-bold text-slate-900 whitespace-nowrap">${hl(w.word, q)}</td>
+                                        <td class="py-2 px-2 font-mono text-slate-500 whitespace-nowrap">${w.pos}</td>
+                                        <td class="py-2 px-3 font-mono text-[11px] text-slate-600">${hl(w.breakdown, q)}</td>
+                                        <td class="py-2 px-3 text-slate-800 font-medium">${hl(w.meaning, q)}</td>
+                                    </tr>
+                                    `;
+                                }).join("")}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                `;
+            }).join("");
+        }
+
+        window.selectMorpheme = function(id) {
+            state.activeId = id;
+            if (state.searchQuery.trim() !== "") {
+                state.searchQuery = "";
+                searchInput.value = "";
+                clearSearchBtn.classList.add("hidden");
+            }
+            render();
+            detailPaneEl.scrollTop = 0;
+        };
+
+        window.toggleWord = function(morphemeId, word) {
+            const key = `${morphemeId}::${word}`;
+            if (state.selectedWords.has(key)) {
+                state.selectedWords.delete(key);
+            } else {
+                state.selectedWords.add(key);
+            }
+            updateSelectedCounters();
+            render();
+        };
+
+        window.toggleSelectAllInGroup = function(morphemeId) {
+            const filtered = getFilteredLexicon();
+            const group = filtered.find(i => i.id === morphemeId);
+            if (!group) return;
+
+            const allSelected = group.displayWords.every(w => state.selectedWords.has(`${morphemeId}::${w.word}`));
+            if (allSelected) {
+                group.displayWords.forEach(w => state.selectedWords.delete(`${morphemeId}::${w.word}`));
+            } else {
+                group.displayWords.forEach(w => state.selectedWords.add(`${morphemeId}::${w.word}`));
+            }
+            updateSelectedCounters();
+            render();
+        };
+
+        window.copyAiPrompt = function() {
+            const box = document.getElementById("aiPromptBox");
+            if (!box) return;
+            const range = document.createRange();
+            range.selectNode(box);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand("copy");
+                showToast("已複製指令，可直接貼到對話框詢問！");
+            } catch (e) {
+                showToast("複製失敗，請手動選取複製");
+            }
+            window.getSelection().removeAllRanges();
+        };
+
+        window.resetFilters = function() {
+            state.searchQuery = "";
+            state.typeFilter = "all";
+            state.alphaFilter = "ALL";
+            state.posFilter = "all";
+            searchInput.value = "";
+            posFilter.value = "all";
+            clearSearchBtn.classList.add("hidden");
+            typeBtns.forEach(b => {
+                b.className = b.dataset.type === "all"
+                    ? "type-btn py-2 text-center bg-slate-900 text-white cursor-pointer"
+                    : "type-btn py-2 text-center text-slate-600 hover:bg-slate-100 border-l border-slate-200 cursor-pointer";
+            });
+            alphaBar.querySelectorAll(".alpha-btn").forEach(b => {
+                b.className = b.dataset.alpha === "ALL"
+                    ? "alpha-btn px-1.5 py-0.5 rounded cursor-pointer bg-slate-800 text-white font-bold"
+                    : "alpha-btn px-1.5 py-0.5 rounded cursor-pointer text-slate-600 hover:bg-slate-200";
+            });
+            render();
+        };
+
+        function updateSelectedCounters() {
+            document.querySelectorAll(".selected-count").forEach(el => {
+                el.textContent = state.selectedWords.size;
+            });
+        }
+
+        window.openAddModalWithTerm = function(term) {
+            document.getElementById("newMorpheme").value = term || "";
+            document.getElementById("newOrigin").value = "";
+            document.getElementById("newMeaning").value = "";
+            document.getElementById("newWord1").value = "";
+            document.getElementById("newWMean1").value = "";
+            document.getElementById("newBreak1").value = "";
+            addModal.classList.remove("hidden");
+        };
+
+        document.getElementById("desktopAddBtn").addEventListener("click", () => openAddModalWithTerm(""));
+        document.getElementById("mobileAddBtn").addEventListener("click", () => openAddModalWithTerm(""));
+        document.getElementById("closeAddBtn").addEventListener("click", () => addModal.classList.add("hidden"));
+        document.getElementById("cancelAddBtn").addEventListener("click", () => addModal.classList.add("hidden"));
+
+        document.getElementById("saveCustomBtn").addEventListener("click", () => {
+            const type = document.getElementById("newType").value;
+            const morpheme = document.getElementById("newMorpheme").value.trim();
+            const origin = document.getElementById("newOrigin").value.trim() || "自訂字源";
+            const meaning = document.getElementById("newMeaning").value.trim();
+            const w1 = document.getElementById("newWord1").value.trim();
+            const pos1 = document.getElementById("newPos1").value.trim() || "n.";
+            const wm1 = document.getElementById("newWMean1").value.trim();
+            const br1 = document.getElementById("newBreak1").value.trim() || morpheme;
+
+            if (!morpheme || !meaning) {
+                showToast("請填寫「詞素寫法」與「核心字義」");
+                return;
+            }
+
+            const newId = "custom-" + Date.now();
+            const wordsArr = w1 ? [[w1, pos1, br1, wm1 || meaning]] : [[morpheme.replace(/-/g, ""), pos1, morpheme, meaning]];
+            const entry = [newId, type, morpheme, origin, meaning, wordsArr];
+
+            customLexicon.unshift(entry);
+            saveCustomLexicon(customLexicon);
+            rebuildLexicon();
+
+            state.activeId = newId;
+            state.searchQuery = "";
+            searchInput.value = "";
+            clearSearchBtn.classList.add("hidden");
+            addModal.classList.add("hidden");
+            render();
+            showToast(`已新增自訂詞素「${morpheme}」`);
+        });
+
+        window.deleteCustomMorpheme = function(id) {
+            customLexicon = customLexicon.filter(item => item[0] !== id);
+            saveCustomLexicon(customLexicon);
+            rebuildLexicon();
+            render();
+            showToast("已刪除自訂詞素");
+        };
+
+        function buildTsvContent() {
+            const lines = [];
+            state.selectedWords.forEach(key => {
+                const [mId, wordStr] = key.split("::");
+                const group = LEXICON.find(i => i.id === mId);
+                if (!group) return;
+                const wObj = group.words.find(w => w.word === wordStr);
+                if (!wObj) return;
+
+                const firstChar = wObj.word.charAt(0).toLowerCase();
+                lines.push(`[${firstChar}] ${wObj.pos} ${wObj.meaning}\t${wObj.word}`);
+            });
+            return lines.join("\n");
+        }
+
+        function openExportModal() {
+            document.getElementById("modalCount").textContent = state.selectedWords.size;
+            document.getElementById("exportTextarea").value = buildTsvContent();
+            exportModal.classList.remove("hidden");
+        }
+        document.getElementById("mobileExportBtn").addEventListener("click", openExportModal);
+        document.getElementById("desktopExportBtn").addEventListener("click", openExportModal);
+        document.getElementById("closeExportBtn").addEventListener("click", () => exportModal.classList.add("hidden"));
+
+        document.getElementById("clearSelectionBtn").addEventListener("click", () => {
+            state.selectedWords.clear();
+            updateSelectedCounters();
+            document.getElementById("modalCount").textContent = "0";
+            document.getElementById("exportTextarea").value = "";
+            render();
+            showToast("已清空選取清單");
+        });
+
+        document.getElementById("copyExportBtn").addEventListener("click", () => {
+            if (state.selectedWords.size === 0) {
+                showToast("請先勾選至少一個單字");
+                return;
+            }
+            const ta = document.getElementById("exportTextarea");
+            ta.select();
+            try {
+                document.execCommand("copy");
+                showToast(`已複製 ${state.selectedWords.size} 張單字卡！`);
+            } catch (e) {
+                showToast("請手動複製文字框內容");
+            }
+        });
+
+        document.getElementById("downloadTsvBtn").addEventListener("click", () => {
+            if (state.selectedWords.size === 0) {
+                showToast("請先勾選至少一個單字");
+                return;
+            }
+            const ta = document.getElementById("exportTextarea");
+            const blob = new Blob(["\uFEFF" + ta.value], { type: "text/tab-separated-values;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `spanish_morphemes_${state.selectedWords.size}.tsv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("已下載 .tsv 檔案");
+        });
+
+        searchInput.addEventListener("input", e => {
+            state.searchQuery = e.target.value;
+            clearSearchBtn.classList.toggle("hidden", state.searchQuery.trim().length === 0);
+            render();
+        });
+
+        clearSearchBtn.addEventListener("click", () => {
+            state.searchQuery = "";
+            searchInput.value = "";
+            clearSearchBtn.classList.add("hidden");
+            render();
+        });
+
+        typeBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                typeBtns.forEach(b => {
+                    b.className = "type-btn py-2 text-center text-slate-600 hover:bg-slate-100 border-l border-slate-200 cursor-pointer";
+                });
+                btn.className = "type-btn py-2 text-center bg-slate-900 text-white cursor-pointer";
+                state.typeFilter = btn.dataset.type;
+                render();
+            });
+        });
+
+        posFilter.addEventListener("change", e => {
+            state.posFilter = e.target.value;
+            render();
+        });
+
+        // 啟動初始化
+        rebuildLexicon();
+        if (LEXICON.length > 0) {
+            state.activeId = LEXICON[0].id;
+        }
+        initAlphaBar();
+        render();
+    </script>
+</body>
+</html>
