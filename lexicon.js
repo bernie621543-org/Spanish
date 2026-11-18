@@ -4334,6 +4334,339 @@ window.CORE_LEXICON = [
     ]
   ],
   [
+    "suf-dor",
+    "suffix",
+    "-dor / -dora / -tor / -sor",
+    "拉丁文 -tor / -sor",
+    "執行動作的人或機器",
+    [
+      [
+        "trabajador",
+        "n.",
+        "trabajar (工作) + -dor",
+        "工人"
+      ],
+      [
+        "impresora",
+        "n.",
+        "imprimir (印) + -ora",
+        "印表機"
+      ],
+      [
+        "actor",
+        "n.",
+        "act- (做) + -or",
+        "演員"
+      ]
+    ]
+  ],
+  [
+    "suf-ero",
+    "suffix",
+    "-ero / -era",
+    "拉丁文 -arius",
+    "職業、場所或容器",
+    [
+      [
+        "panadero",
+        "n.",
+        "pan (麵包) + -adero",
+        "麵包師"
+      ],
+      [
+        "basurero",
+        "n.",
+        "basura (垃圾) + -ero",
+        "垃圾桶"
+      ]
+    ]
+  ],
+  [
+    "suf-ista",
+    "suffix",
+    "-ista",
+    "希臘文 -istēs",
+    "主義者、專家、從業者",
+    [
+      [
+        "dentista",
+        "n.",
+        "diente (牙齒) + -ista",
+        "牙醫"
+      ],
+      [
+        "periodista",
+        "n.",
+        "periodo (時期/期刊) + -ista",
+        "記者"
+      ]
+    ]
+  ],
+  [
+    "suf-ante",
+    "suffix",
+    "-ante / -ente / -iente",
+    "拉丁文 -antem / -entem",
+    "執行者（源自現在分詞）",
+    [
+      [
+        "estudiante",
+        "n.",
+        "estudiar (學習) + -ante",
+        "學生"
+      ],
+      [
+        "cliente",
+        "n.",
+        "client- (依靠) + -ente",
+        "客戶"
+      ]
+    ]
+  ],
+  [
+    "suf-eria",
+    "suffix",
+    "-ería",
+    "拉丁文 -aria",
+    "商店、場所或行業",
+    [
+      [
+        "panadería",
+        "n.",
+        "pan (麵包) + -ería",
+        "麵包店"
+      ],
+      [
+        "librería",
+        "n.",
+        "libro (書) + -ería",
+        "書店"
+      ]
+    ]
+  ],
+  [
+    "suf-al-ar-edo",
+    "suffix",
+    "-al / -ar / -edo",
+    "拉丁文 -alis / -aretum",
+    "大量植物聚集地",
+    [
+      [
+        "pinar",
+        "n.",
+        "pino (松樹) + -ar",
+        "松樹林"
+      ],
+      [
+        "arboleda",
+        "n.",
+        "árbol (樹) + -eda",
+        "樹林"
+      ]
+    ]
+  ],
+  [
+    "suf-able",
+    "suffix",
+    "-able / -ible",
+    "拉丁文 -abilis / -ibilis",
+    "可被…的",
+    [
+      [
+        "amable",
+        "adj.",
+        "am- (愛) + -able",
+        "親切的"
+      ],
+      [
+        "posible",
+        "adj.",
+        "pos- (能) + -ible",
+        "可能的"
+      ],
+      [
+        "increíble",
+        "adj.",
+        "in- (不) + creer (相信) + -ible",
+        "難以置信的"
+      ]
+    ]
+  ],
+  [
+    "suf-oso",
+    "suffix",
+    "-oso / -osa",
+    "拉丁文 -osus",
+    "充滿…的、具有…性質的",
+    [
+      [
+        "peligroso",
+        "adj.",
+        "peligro (危險) + -oso",
+        "危險的"
+      ],
+      [
+        "furioso",
+        "adj.",
+        "furia (憤怒) + -oso",
+        "憤怒的"
+      ]
+    ]
+  ],
+  [
+    "suf-ivo",
+    "suffix",
+    "-ivo / -iva",
+    "拉丁文 -ivus",
+    "具有…傾向或功能的",
+    [
+      [
+        "activo",
+        "adj.",
+        "act- (做) + -ivo",
+        "活躍的"
+      ],
+      [
+        "creativo",
+        "adj.",
+        "creat- (創造) + -ivo",
+        "有創意的"
+      ]
+    ]
+  ],
+  [
+    "suf-al-ar-ario",
+    "suffix",
+    "-al / -ar / -ario",
+    "拉丁文 -alis / -arius",
+    "與…有關的",
+    [
+      [
+        "nacional",
+        "adj.",
+        "nación (國家) + -al",
+        "國家的"
+      ],
+      [
+        "solar",
+        "adj.",
+        "sol (太陽) + -ar",
+        "太陽的"
+      ],
+      [
+        "diario",
+        "adj.",
+        "día (天) + -ario",
+        "每日的"
+      ]
+    ]
+  ],
+  [
+    "suf-izo",
+    "suffix",
+    "-izo / -iza",
+    "拉丁文 -icius",
+    "容易…的、帶點…顏色的",
+    [
+      [
+        "resbaladizo",
+        "adj.",
+        "resbalar (滑倒) + -izo",
+        "滑的"
+      ],
+      [
+        "rojizo",
+        "adj.",
+        "rojo (紅的) + -izo",
+        "微紅的"
+      ]
+    ]
+  ],
+  [
+    "suf-izar",
+    "suffix",
+    "-izar",
+    "希臘文 -izō / 拉丁文 -izare",
+    "使…化",
+    [
+      [
+        "organizar",
+        "v.",
+        "organo (器官/組織) + -izar",
+        "組織"
+      ],
+      [
+        "realizar",
+        "v.",
+        "real (真實的) + -izar",
+        "實現"
+      ]
+    ]
+  ],
+  [
+    "suf-ificar",
+    "suffix",
+    "-ificar",
+    "拉丁文 -ificare",
+    "使成為…",
+    [
+      [
+        "clarificar",
+        "v.",
+        "claro (清楚的) + -ificar",
+        "澄清"
+      ],
+      [
+        "simplificar",
+        "v.",
+        "simple (簡單的) + -ificar",
+        "簡化"
+      ]
+    ]
+  ],
+  [
+    "suf-ecer",
+    "suffix",
+    "-ecer",
+    "拉丁文 -escere",
+    "漸漸變得…（狀態變化）",
+    [
+      [
+        "enveje-cer",
+        "v.",
+        "en- + viejo (老) + -ecer",
+        "變老"
+      ],
+      [
+        "oscurecer",
+        "v.",
+        "oscuro (暗的) + -ecer",
+        "變暗"
+      ]
+    ]
+  ],
+  [
+    "suf-ear",
+    "suffix",
+    "-ear",
+    "拉丁文 -iare",
+    "反覆進行某動作（高頻口語造詞）",
+    [
+      [
+        "telefonear",
+        "v.",
+        "teléfono (電話) + -ear",
+        "打電話"
+      ],
+      [
+        "goolear",
+        "v.",
+        "Google + -ear",
+        "Google 搜尋"
+      ]
+    ]
+  ],
+  [
     "root-viv",
     "root",
     "viv- / vit- / vid-",
